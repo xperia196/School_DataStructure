@@ -46,7 +46,7 @@ return nsInit;
 }
 
 char process();
-char inToPostFix(char formula[MAXLEN]);
+char in2post(char func[MAXLEN]);
 int pushStack(sHead *stack, char data); 
 int pushStack(nsHead *stack, int integerData);
 int popStack(sHead *stack, char *dataOut);
@@ -71,24 +71,24 @@ while(character!='q' && character!='Q')
 {
 character=process();
 }
-printf("Halting Application..\n\n");
+printf("Halting Calculator Application..\n\n");
 return 0;
 }
 
 char process()
 {
-char formula[MAXLEN]={'\0',};
+char func[MAXLEN]={'\0',};
 fflush(stdin);
-gets(formula);
-if(formula[0]=='Q')
+gets(func);
+if(func[0]=='Q')
 return 'Q';
-else if(formula[0]=='q')
+else if(func[0]=='q')
 return 'q';
-inToPostFix(formula);
+in2post(func);
 return NULL;
 }
 
-char inToPostFix(char formula[MAXLEN])
+char in2post(char func[MAXLEN])
 {
 sHead stack=createStack();
 
@@ -96,13 +96,13 @@ char postFix[MAXLEN]={'\0',};
 char token;
 char topToken;
 char tokenOut;
-int formulaLen = strlen(formula);
+int formulaLen = strlen(func);
 int looper=0;
 int index=0;
 
 while(looper < formulaLen)
 {
-token = formula[looper];
+token = func[looper];
 if(token == '(')
 pushStack(&stack,token);
 else if(token == ')')
